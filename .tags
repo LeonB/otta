@@ -1,0 +1,119 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+ActionsMenu	bin/otta-applet.py	/^class ActionsMenu(Gtk.Menu):$/;"	c
+Backend	otta/backend.py	/^class Backend(object):$/;"	c
+Config	otta/config.py	/^class Config(object):$/;"	c
+JIRA	otta/services/JIRA.py	/^class JIRA(otta.Service):$/;"	c
+Main	bin/otta-timer.py	/^class Main(object):$/;"	c
+Otta	otta/__init__.py	/^class Otta(object):$/;"	c
+Otta_Appindicator	bin/otta-applet.py	/^class Otta_Appindicator():$/;"	c
+Service	otta/service.py	/^class Service(object):$/;"	c
+Services	otta/config.py	/^class Services(dict):$/;"	c
+Timer	otta/timer.py	/^class Timer(object):$/;"	c
+Timer	otta/windows/timer.py	/^class Timer(otta.Window):$/;"	c
+Window	otta/window.py	/^class Window(object):$/;"	c
+__call__	otta/utils.py	/^   def __call__(self, *args):$/;"	m	class:memoized	file:
+__get__	otta/utils.py	/^   def __get__(self, obj, objtype):$/;"	m	class:memoized	file:
+__getattr__	otta/config.py	/^	def __getattr__(self, name):$/;"	m	class:Services	file:
+__getattr__	otta/window.py	/^	def __getattr__(self, name):$/;"	m	class:Window	file:
+__init__	bin/otta-applet.py	/^	def __init__(self):$/;"	m	class:Otta_Appindicator
+__init__	bin/otta-applet.py	/^	def __init__(self, app):$/;"	m	class:ActionsMenu
+__init__	bin/otta-timer.py	/^	def __init__(self):$/;"	m	class:Main
+__init__	otta/backend.py	/^	def __init__(self, config):$/;"	m	class:Backend
+__init__	otta/config.py	/^	def __init__(self):$/;"	m	class:Config
+__init__	otta/services/JIRA.py	/^	def __init__(self, config):$/;"	m	class:JIRA
+__init__	otta/timer.py	/^	def __init__(self, config):$/;"	m	class:Timer
+__init__	otta/utils.py	/^   def __init__(self, func):$/;"	m	class:memoized
+__init__	otta/window.py	/^	def __init__(self, glade_file, window_name):$/;"	m	class:Window
+__init__	otta/windows/timer.py	/^	def __init__(self, app):$/;"	m	class:Timer
+__repr__	otta/utils.py	/^   def __repr__(self):$/;"	m	class:memoized	file:
+_time	otta/timer.py	/^	_time = 0$/;"	v	class:Timer
+app	otta/windows/timer.py	/^	app = None$/;"	v	class:Timer
+backend	bin/otta-applet.py	/^	backend = None$/;"	v	class:Otta_Appindicator
+backend	bin/otta-timer.py	/^	backend = None$/;"	v	class:Main
+builder	otta/window.py	/^	builder = None$/;"	v	class:Window
+config	bin/otta-applet.py	/^	config = None$/;"	v	class:Otta_Appindicator
+config	bin/otta-timer.py	/^	config = None$/;"	v	class:Main
+config	otta/backend.py	/^	config = None$/;"	v	class:Backend
+config	otta/services/JIRA.py	/^	config = None$/;"	v	class:JIRA
+config	otta/timer.py	/^	config = None$/;"	v	class:Timer
+connection	otta/services/JIRA.py	/^	connection = None$/;"	v	class:JIRA
+full_text_search	otta/windows/timer.py	/^	def full_text_search(self, completion, entrystr, iter, data):$/;"	m	class:Timer
+get_class	otta/utils.py	/^def get_class( kls ):$/;"	f
+get_connection	otta/services/JIRA.py	/^	def get_connection(self):$/;"	m	class:JIRA
+get_items	bin/otta-timer.py	/^	def get_items(self):$/;"	m	class:Main
+get_items	otta/backend.py	/^	def get_items(self, project):$/;"	m	class:Backend
+get_items	otta/services/JIRA.py	/^	def get_items(self, project):$/;"	m	class:JIRA
+get_projects	bin/otta-timer.py	/^	def get_projects(self):$/;"	m	class:Main
+get_projects	otta/backend.py	/^	def get_projects(self):$/;"	m	class:Backend
+get_projects	otta/services/JIRA.py	/^	def get_projects(self, projects = None):$/;"	m	class:JIRA
+get_widget	otta/window.py	/^	def get_widget(self, name):$/;"	m	class:Window
+icon_name	bin/otta-applet.py	/^	icon_name = 'network-offline'$/;"	v	class:Otta_Appindicator
+ind	bin/otta-applet.py	/^	ind = None$/;"	v	class:Otta_Appindicator
+item	bin/otta-timer.py	/^	item = None$/;"	v	class:Main
+left_click	bin/otta-applet.py	/^	def left_click(self, event):$/;"	m	class:ActionsMenu
+list_items	bin/otta-timer.py	/^	def list_items(self):$/;"	m	class:Main
+list_items	bin/otta-timer.py	/^list_items = main.list_items$/;"	v
+list_projects	bin/otta-timer.py	/^	def list_projects(self):$/;"	m	class:Main
+list_projects	bin/otta-timer.py	/^list_projects = main.list_projects$/;"	v
+log_time	otta/backend.py	/^	def log_time(self, time, project = None, item = None):$/;"	m	class:Backend
+log_time	otta/services/JIRA.py	/^	def log_time(self, time, project = None, item = None):$/;"	m	class:JIRA
+main	bin/otta-timer.py	/^main = Main()$/;"	v
+memoized	otta/utils.py	/^class memoized(object):$/;"	c
+menu	bin/otta-applet.py	/^	menu = None$/;"	v	class:Otta_Appindicator
+on_buttonPlay_clicked	otta/windows/timer.py	/^	def on_buttonPlay_clicked(self, window, event):$/;"	m	class:Timer
+on_comboboxItem_changed	otta/windows/timer.py	/^	def on_comboboxItem_changed(self, widget):$/;"	m	class:Timer
+on_comboboxItem_popdown	otta/windows/timer.py	/^	def on_comboboxItem_popdown(self, widget):$/;"	m	class:Timer
+on_comboboxProject_changed	otta/windows/timer.py	/^	def on_comboboxProject_changed(self, widget):$/;"	m	class:Timer
+on_comboboxProject_popdown	otta/windows/timer.py	/^	def on_comboboxProject_popdown(self, widget):$/;"	m	class:Timer
+on_menuActions_button_press_event	bin/otta-applet.py	/^	def on_menuActions_button_press_event(self, button, event):$/;"	m	class:ActionsMenu
+on_menuitemEditTimer_activate	bin/otta-applet.py	/^	def on_menuitemEditTimer_activate(self, event):$/;"	m	class:ActionsMenu
+on_menuitemIntegration_activate	bin/otta-applet.py	/^	def on_menuitemIntegration_activate(self, event):$/;"	m	class:ActionsMenu
+on_menuitemProjects_activate	bin/otta-applet.py	/^	def on_menuitemProjects_activate(self, event):$/;"	m	class:ActionsMenu
+on_menuitemQuit_activate	bin/otta-applet.py	/^	def on_menuitemQuit_activate(self, event):$/;"	m	class:ActionsMenu
+on_menuitemResetTimer_activate	bin/otta-applet.py	/^	def on_menuitemResetTimer_activate(self, event):$/;"	m	class:ActionsMenu
+on_menuitemRoundTime_activate	bin/otta-applet.py	/^	def on_menuitemRoundTime_activate(self, event):$/;"	m	class:ActionsMenu
+on_menuitemShowTimer_activate	bin/otta-applet.py	/^	def on_menuitemShowTimer_activate(self, event):$/;"	m	class:ActionsMenu
+on_menuitemStartTimer_activate	bin/otta-applet.py	/^	def on_menuitemStartTimer_activate(self, event):$/;"	m	class:ActionsMenu
+on_window_delete_event	otta/windows/timer.py	/^	def on_window_delete_event(self, window, event):$/;"	m	class:Timer
+pause	bin/otta-timer.py	/^	def pause(self):$/;"	m	class:Main
+pause	bin/otta-timer.py	/^pause = main.pause$/;"	v
+pause	otta/timer.py	/^	def pause(self):$/;"	m	class:Timer
+project	bin/otta-timer.py	/^	project = None$/;"	v	class:Main
+quit	bin/otta-applet.py	/^	def quit (self, *args):$/;"	m	class:Otta_Appindicator
+right_click	bin/otta-applet.py	/^	def right_click(self, event):$/;"	m	class:ActionsMenu
+round_time	otta/config.py	/^	def round_time(self):$/;"	m	class:Config
+round_time	otta/timer.py	/^	def round_time(self):$/;"	m	class:Timer
+service	otta/backend.py	/^	service = None$/;"	v	class:Backend
+services	otta/config.py	/^	services = None$/;"	v	class:Config
+set_item	bin/otta-timer.py	/^	def set_item(self, item):$/;"	m	class:Main
+set_item	bin/otta-timer.py	/^set_item = main.set_item$/;"	v
+set_project	bin/otta-timer.py	/^	def set_project(self, project):$/;"	m	class:Main
+set_project	bin/otta-timer.py	/^set_project = main.set_project$/;"	v
+setup_app	bin/otta-applet.py	/^	def setup_app(self):$/;"	m	class:Otta_Appindicator
+setup_appindicator	bin/otta-applet.py	/^	def setup_appindicator(self):$/;"	m	class:Otta_Appindicator
+setup_completions	otta/windows/timer.py	/^	def setup_completions(self):$/;"	m	class:Timer
+setup_items_completion	otta/windows/timer.py	/^	def setup_items_completion(self):$/;"	m	class:Timer
+setup_menu	bin/otta-applet.py	/^	def setup_menu(self):$/;"	m	class:Otta_Appindicator
+setup_projects_completion	otta/windows/timer.py	/^	def setup_projects_completion(self):$/;"	m	class:Timer
+setup_signaling	bin/otta-applet.py	/^	def setup_signaling(self):$/;"	m	class:Otta_Appindicator
+start	bin/otta-timer.py	/^	def start(self):$/;"	m	class:Main
+start	bin/otta-timer.py	/^start = main.start$/;"	v
+start	otta/timer.py	/^	def start(self):$/;"	m	class:Timer
+state	otta/timer.py	/^	state = 'stopped'$/;"	v	class:Timer
+stop	bin/otta-timer.py	/^	def stop(self):$/;"	m	class:Main
+stop	bin/otta-timer.py	/^stop = main.stop$/;"	v
+stop	otta/timer.py	/^	def stop(self):$/;"	m	class:Timer
+time	otta/timer.py	/^	def time(self):$/;"	m	class:Timer
+time_started	otta/timer.py	/^	time_started = None$/;"	v	class:Timer
+time_stopped	otta/timer.py	/^	time_stopped = 0$/;"	v	class:Timer
+timer	bin/otta-applet.py	/^	timer = None$/;"	v	class:Otta_Appindicator
+timer	bin/otta-timer.py	/^	timer = None$/;"	v	class:Main
+timer	bin/otta-timer.py	/^timer = main.timer$/;"	v
+title	bin/otta-applet.py	/^	title = 'Online Time Tracking Applet'$/;"	v	class:Otta_Appindicator
+version	bin/otta-applet.py	/^	version = '0.0.1'$/;"	v	class:Otta_Appindicator
+window	otta/window.py	/^	window = None$/;"	v	class:Window

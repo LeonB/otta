@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <!-- interface-requires gtk+ 3.0 -->
+  <object class="GtkEntryBuffer" id="entrybuffer1"/>
+  <object class="GtkEntryCompletion" id="entrycompletionProjects">
+    <property name="text_column">0</property>
+  </object>
+  <object class="GtkEntryCompletion" id="entrycompletionTasks">
+    <property name="text_column">0</property>
+  </object>
+  <object class="GtkWindow" id="windowTimer">
+    <property name="width_request">400</property>
+    <property name="can_focus">False</property>
+    <property name="border_width">12</property>
+    <property name="title" translatable="yes">Timer</property>
+    <property name="window_position">center</property>
+    <property name="type_hint">utility</property>
+    <child>
+      <object class="GtkTable" id="tableTimer">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="n_rows">3</property>
+        <property name="n_columns">2</property>
+        <child>
+          <object class="GtkLabel" id="labelTodo">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="label" translatable="yes">Task</property>
+          </object>
+          <packing>
+            <property name="top_attach">2</property>
+            <property name="bottom_attach">3</property>
+            <property name="x_options"/>
+            <property name="y_options"/>
+            <property name="x_padding">6</property>
+            <property name="y_padding">6</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel" id="labelTime">
+            <property name="height_request">80</property>
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="xalign">0</property>
+            <property name="label" translatable="yes">00:00</property>
+            <attributes>
+              <attribute name="size" value="45000"/>
+            </attributes>
+          </object>
+          <packing>
+            <property name="left_attach">1</property>
+            <property name="right_attach">2</property>
+            <property name="y_options">GTK_EXPAND</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkEventBox" id="eventbox1">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <child>
+              <object class="GtkButton" id="buttonPlay">
+                <property name="visible">True</property>
+                <property name="sensitive">False</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <property name="tooltip_text" translatable="yes">Start timer</property>
+                <signal name="clicked" handler="on_buttonPlay_clicked" swapped="no"/>
+                <child>
+                  <object class="GtkImage" id="imagePlay">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="stock">gtk-media-play</property>
+                    <property name="icon-size">6</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="x_options"/>
+            <property name="y_options"/>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel" id="labelProject">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="xalign">0</property>
+            <property name="label" translatable="yes">Project</property>
+          </object>
+          <packing>
+            <property name="top_attach">1</property>
+            <property name="bottom_attach">2</property>
+            <property name="x_options"/>
+            <property name="y_options">GTK_EXPAND</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkComboBoxText" id="comboboxProject">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="has_entry">True</property>
+            <property name="entry_text_column">0</property>
+            <property name="id_column">1</property>
+            <signal name="changed" handler="on_comboboxProject_changed" swapped="no"/>
+            <child internal-child="entry">
+              <object class="GtkEntry" id="comboboxProject-entry">
+                <property name="can_focus">True</property>
+                <property name="placeholder_text">Select a project</property>
+                <property name="completion">entrycompletionProjects</property>
+                <property name="input_hints">GTK_INPUT_HINT_WORD_COMPLETION | GTK_INPUT_HINT_NONE</property>
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="left_attach">1</property>
+            <property name="right_attach">2</property>
+            <property name="top_attach">1</property>
+            <property name="bottom_attach">2</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkComboBoxText" id="comboboxTask">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="has_entry">True</property>
+            <property name="entry_text_column">0</property>
+            <property name="id_column">1</property>
+            <signal name="changed" handler="on_comboboxTask_changed" swapped="no"/>
+            <child internal-child="entry">
+              <object class="GtkEntry" id="comboboxTask-entry">
+                <property name="can_focus">True</property>
+                <property name="placeholder_text">Select a task</property>
+                <property name="completion">entrycompletionTasks</property>
+                <property name="input_hints">GTK_INPUT_HINT_WORD_COMPLETION | GTK_INPUT_HINT_NONE</property>
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="left_attach">1</property>
+            <property name="right_attach">2</property>
+            <property name="top_attach">2</property>
+            <property name="bottom_attach">3</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>
