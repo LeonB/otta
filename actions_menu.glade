@@ -8,16 +8,30 @@
     <child>
       <object class="GtkMenuItem" id="menuitemStartTimer">
         <property name="visible">True</property>
+        <property name="sensitive">False</property>
         <property name="can_focus">False</property>
         <property name="label" translatable="yes">Start</property>
         <signal name="activate" handler="on_menuitemStartTimer_activate" swapped="no"/>
       </object>
     </child>
     <child>
-      <object class="GtkMenuItem" id="menuitemResetTimer">
-        <property name="visible">True</property>
+      <object class="GtkMenuItem" id="menuitemPauseTimer">
         <property name="can_focus">False</property>
-        <property name="label" translatable="yes">Reset timer</property>
+        <property name="label" translatable="yes">Pause</property>
+        <signal name="activate" handler="on_menuitemPauseTimer_activate" swapped="no"/>
+      </object>
+    </child>
+    <child>
+      <object class="GtkMenuItem" id="menuitemStopTimer">
+        <property name="can_focus">False</property>
+        <property name="label" translatable="yes">Stop &amp; save time</property>
+        <signal name="activate" handler="on_menuitemStopTimer_activate" swapped="no"/>
+      </object>
+    </child>
+    <child>
+      <object class="GtkMenuItem" id="menuitemResetTimer">
+        <property name="can_focus">False</property>
+        <property name="label" translatable="yes">Cancel &amp; reset timer</property>
         <signal name="activate" handler="on_menuitemResetTimer_activate" swapped="no"/>
       </object>
     </child>
@@ -39,7 +53,7 @@
       <object class="GtkMenuItem" id="menuitemIntegration">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-        <property name="label" translatable="yes">Post time to Basecamp</property>
+        <property name="label" translatable="yes">Post time to %s</property>
         <signal name="activate" handler="on_menuitemIntegration_activate" swapped="no"/>
       </object>
     </child>

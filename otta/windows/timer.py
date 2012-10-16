@@ -1,91 +1,190 @@
 from gi.repository import Gtk
-from gi.repository import GObject
+from gi.repository import Gio
 import otta
 from otta.models import Project, Task
 
 class Timer(otta.Window):
-	app = None
-	projects = []
+    app = None
+    projects = []
 
-	def __init__(self, app):
-		otta.Window.__init__(self, 'timer.glade', 'windowTimer')
+    def __init__(self, app):
+        otta.Window.__init__(self, 'timer.glade', 'windowTimer')
 
-		for project in self.get_projects():
-			self.projects.append(project)
+        self.window.set_keep_above(True)
+        self.app = app
+        self.setup_project_widget()
+        self.setup_callbacks()
 
-		self.app = app
-		self.setup_completions()
-		self.setup_project_widget()
+    def on_menuStartTimer(self):
+        print 'asd'
 
-	def setup_completions(self):
-		self.setup_projects_completion()
-		# self.setup_tasks_completion()
+    def setup_project_widget(self):
+        widget = self.get_widget('comboboxProject')
+        widget.set_model(self.project_store())
 
-	# fill a liststore with project names
-	def setup_projects_completion(self):
-		widget = self.get_widget('entrycompletionProjects')
-		widget.set_model(self.project_store())
-		widget.set_match_func(self.full_text_search, None)
+        completion = self.get_widget('entrycompletionProjects')
+        completion.set_model(self.project_store())
+        completion.set_match_func(self.full_text_search, None)
 
-	# fill a liststore with task names
-	def setup_tasks_completion(self):
-		liststore = Gtk.ListStore(str)
-		for task in self.app.backend.get_tasks():
-			liststore.append([project])
+    def setup_callbacks(self):
+        self.app.timer.connect('started', self.on_timer_started)
+        self.app.timer.connect('stopped', self.on_timer_stopped)
+        self.app.timer.connect('paused', self.on_timer_paused)
+        self.app.timer.connect('minute-signal', self.on_minute_signal)
+        self.app.connect('current-task-changed', self.on_current_task_changed)
 
-		widget = self.get_widget('entrycompletionProjects')
-		widget.set_model(liststore)
-		widget.set_match_func(self.full_text_search, None)
+    def project_store(self):
+        store = Gtk.ListStore(str, int)
+        for key, project in enumerate(self.app.projects):
+            store.append([project.title, key])
 
-	def setup_project_widget(self):
-		project_widget = self.get_widget('comboboxProject')
-		project_widget.set_model(self.project_store())
+        return store
 
-		renderer = project_widget.get_cells()[0]
-		project_widget.set_cell_data_func(renderer, self.project_cell_data, None)
+    def setup_task_widget(self):
+        widget = self.get_widget('comboboxTask')
+        widget.set_model(self.task_store())
 
-	def project_cell_data(self, widget, cell, liststore, iter, user_data):
-		project = liststore.get_value(iter, 0)
-		cell.set_property('text', project.title)
+        completion = self.get_widget('entrycompletionTasks')
+        completion.set_model(self.task_store())
+        completion.set_match_func(self.full_text_search, None)
 
-	def project_store(self):
-		store = Gtk.ListStore(GObject.TYPE_PYOBJECT)
-		for project in self.projects:
-			store.append([project])
+        # Empty the previous text / selected task
+        entry = self.get_widget('comboboxTask-entry')
+        entry.set_text('')
 
-		return store
+    def task_store(self):
+        store = Gtk.ListStore(str, int)
+        for key, task in enumerate(self.app.tasks):
+            store.append([task.title, key])
 
-	def get_projects(self):
-		for project in Project.select():
-			yield project
+        return store
 
-	# Callback method for GtkEntryCompletion
-	def full_text_search(self, completion, entrystr, iter, data):
-		model = completion.get_model()
-		modelstr = model[iter][0]
-		return entrystr in modelstr
+    # Callback method for GtkEntryCompletion
+    def full_text_search(self, completion, entrystr, iter, data):
+        liststore = completion.get_model()
+        modelstr = liststore[iter][0] # search column 0
+        return entrystr.lower() in modelstr.lower()
 
-	def on_comboboxProject_changed(self, widget):
-		print 'on_comboboxProject_changed'
-		text = widget.get_active_text()
-		projects = self.projects
-		if text not in projects:
-			return
+    # When a project gets selected from the tasks popup (can be through 'on_project_match_selected')
+    def on_comboboxProject_changed(self, widget):
+        print 'on_comboboxProject_changed'
+        tree_iter = widget.get_active_iter()
+        self.disable_start_button()
+        self.app.tasks = []
 
-		project = projects[text]
+        if not tree_iter:
+            self.app.set_current_task(None)
+            self.setup_task_widget()
+            return
 
-		task_widget = self.get_widget('comboboxTask')
-		for task in sorted(self.app.backend.get_tasks(project).keys()):
-			print task
-			task_widget.append_text(task)
+        model = widget.get_model()
+        key = model[tree_iter][1]
+        self.app.set_current_project(self.app.projects[key])
+        for t in self.app.get_current_project().tasks:
+            self.app.tasks.append(t)
+        self.setup_task_widget()
 
-	def on_comboboxTask_changed(self, widget):
-		print 'on_comboboxTask_changed'
+    # When a task gets selected from the tasks popup (can be through 'on_task_match_selected')
+    def on_comboboxTask_changed(self, widget):
+        print 'on_comboboxTask_changed'
+        tree_iter = widget.get_active_iter()
 
-	def on_window_delete_event(self, window, event):
-		print 'on_window_delete_event'
-		window.hide()
-		return True
+        if not tree_iter:
+            self.app.set_current_task(None)
+            self.disable_start_button()
+            return
 
-	def on_buttonPlay_clicked(self, window, event):
-		print 'on_buttonPlay_clicked'
+        model = widget.get_model()
+        key = model[tree_iter][1]
+        self.app.set_current_task(self.app.tasks[key])
+
+    # When a task gets selected from the projects completion popup
+    def on_entrycompletionProjects_match_selected(self, widget, model, active_iter):
+        key = model[active_iter][1] #get the 'key' column
+        combo = self.get_widget('comboboxProject');
+        combo.set_active_iter(combo.get_model().get_iter(key))
+
+    # When a task gets selected from the tasks completion popup
+    def on_entrycompletionTasks_match_selected(self, widget, model, active_iter):
+        key = model[active_iter][1] #get the 'key' column
+        combo = self.get_widget('comboboxTask');
+        combo.set_active_iter(combo.get_model().get_iter(key))
+
+    def on_window_delete_event(self, window, event):
+        print 'on_window_delete_event'
+        window.hide()
+        # window.destroy()
+        return True
+
+    def on_buttonPlay_clicked(self, widget):
+        if self.app.timer.state == otta.timer.STATE_STARTED:
+            self.app.timer.stop()
+            try:
+                self.app.save_current_timer()
+            except Exception as e:
+                self.show_warning(e)
+        else:
+            self.app.timer.start()
+
+    def on_timer_started(self, timer):
+        self.set_stop_button()
+        self.disable_comboboxes()
+
+    def on_timer_stopped(self, timer):
+        self.set_play_button()
+        self.enable_comboboxes()
+        self.set_label_time(0)
+
+    def on_minute_signal(self, timer, seconds):
+        self.set_label_time(seconds)
+
+    def on_timer_paused(self, timer):
+        self.set_play_icon()
+
+    def on_current_task_changed(self, app):
+        if app.get_current_project() and app.get_current_task():
+            self.enable_start_button()
+        else:
+            self.disable_start_button()
+
+    def enable_start_button(self):
+        self.get_widget('buttonPlay').set_sensitive(True)
+
+    def disable_start_button(self):
+        self.get_widget('buttonPlay').set_sensitive(False)
+
+    def enable_comboboxes(self):
+        self.get_widget('comboboxProject').set_sensitive(True)
+        self.get_widget('comboboxTask').set_sensitive(True)
+
+    def disable_comboboxes(self):
+        self.get_widget('comboboxProject').set_sensitive(False)
+        self.get_widget('comboboxTask').set_sensitive(False)
+
+    def set_label_time(self, seconds):
+        formatted_time = otta.utils.format_seconds(seconds)
+        label = self.get_widget('labelTime')
+        label.set_label(formatted_time)
+
+    def set_stop_button(self):
+        image = self.get_widget('buttonPlayImage')
+        icon, size = image.get_stock()
+        image.set_from_stock(Gtk.STOCK_MEDIA_STOP, size)
+
+        button = self.get_widget('buttonPlay')
+        button.set_tooltip_text('Stop & save time')
+
+    def set_play_button(self):
+        image = self.get_widget('buttonPlayImage')
+        icon, size = image.get_stock()
+        image.set_from_stock(Gtk.STOCK_MEDIA_PLAY, size)
+
+        button = self.get_widget('buttonPlay')
+        button.set_tooltip_text('Start timer')
+
+    def show_warning(self, message):
+        # box = self.get_widget('boxWarning')
+        # label = self.get_widget('labelWarning')
+        # label.set_label('<b>%s</b>' % message)
+        # box.show()
+        otta.utils.warning_message('Warning', message)
