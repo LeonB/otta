@@ -5,7 +5,6 @@ from otta.models import Project, Task
 
 class Timer(otta.Window):
     app = None
-    projects = []
 
     def __init__(self, app):
         otta.Window.__init__(self, 'timer.glade', 'windowTimer')
@@ -131,7 +130,7 @@ class Timer(otta.Window):
         self.disable_comboboxes()
 
     def on_timer_stopped(self, timer):
-        self.set_play_button()
+        self.set_play_icon()
         self.enable_comboboxes()
         self.set_label_time(0)
 
@@ -174,7 +173,7 @@ class Timer(otta.Window):
         button = self.get_widget('buttonPlay')
         button.set_tooltip_text('Stop & save time')
 
-    def set_play_button(self):
+    def set_play_icon(self):
         image = self.get_widget('buttonPlayImage')
         icon, size = image.get_stock()
         image.set_from_stock(Gtk.STOCK_MEDIA_PLAY, size)

@@ -97,6 +97,7 @@ class ActionsMenu(Gtk.Menu):
         self.app = app
         self.builder = builder
         self.timer_window = otta.windows.Timer(self.app)
+        self.worklog_window = otta.windows.Worklog(self.app)
         self.setup_labels()
         self.setup_callbacks()
         self.indicator = indicator
@@ -150,8 +151,9 @@ class ActionsMenu(Gtk.Menu):
     def on_menuitemRoundTime_activate(self, event):
         print('on_menuitemRoundTime_activate')
 
-    def on_menuitemProjects_activate(self, event):
-        print('on_menuitemProjects_activate')
+    def on_menuitemWorklog_activate(self, event):
+        print('on_menuitemWorklog_activate')
+        self.worklog_window.show()
 
     def on_menuitemIntegration_activate(self, event):
         print('on_menuitemIntegration_activate')

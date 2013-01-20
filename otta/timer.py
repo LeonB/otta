@@ -1,4 +1,5 @@
 from __future__ import print_function
+from datetime import datetime
 import math
 import time
 import threading
@@ -13,8 +14,10 @@ class Timer(GObject.GObject):
     _time = 0
     config = None
     state = 'stopped'
-    time_started = None
-    time_stopped = 0
+    started_at = None
+    stopped_at = None
+    _time_started = None #internal one
+    _time_stopped = None #internal one
     _timers = []
 
     __gsignals__ = {
@@ -38,6 +41,7 @@ class Timer(GObject.GObject):
             return
         elif self.state == STATE_STOPPED:
             self._time = 0
+            self.started_at = datetime.now()
 
         self.setup_repeat_timer()
         self._time_started = time.time()
@@ -50,9 +54,10 @@ class Timer(GObject.GObject):
             return
         elif self.state == STATE_STARTED:
             print('registering stopped time')
-            self.time_stopped = time.time()
-            self._time = self._time + (self.time_stopped - self._time_started)
+            self._time_stopped = time.time()
+            self._time = self._time + (self._time_stopped - self._time_started)
 
+        self.stopped_at = datetime.now()
         self.cancel_repeat_timer()
         self.state = STATE_STOPPED
         self.emit('stopped')
@@ -63,8 +68,8 @@ class Timer(GObject.GObject):
             return
 
         self.cancel_repeat_timer()
-        self.time_stopped = time.time()
-        self._time = self._time + (self.time_stopped - self._time_started)
+        self._time_stopped = time.time()
+        self._time = self._time + (self._time_stopped - self._time_started)
         self.state = STATE_PAUSED
         self.emit('paused')
 

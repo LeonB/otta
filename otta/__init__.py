@@ -11,7 +11,6 @@ import windows
 import models
 
 from gi.repository import GObject
-import datetime
 
 class App(GObject.GObject):
     backend = None
@@ -22,6 +21,8 @@ class App(GObject.GObject):
     _current_task = None
     projects = []
     tasks = []
+    timer_started = None
+    timer_stopped = None
 
     __gsignals__ = {
         'current-project-changed': (GObject.SIGNAL_RUN_FIRST, GObject.TYPE_NONE, ()),
@@ -54,7 +55,8 @@ class App(GObject.GObject):
 
     def save_current_timer(self):
         w = models.WorklogEntry()
-        w.date = datetime.date.today()
+        w.started_at = self.timer.started_at
+        w.stopped_at = self.timer.stopped_at
         w.seconds = self.timer.time()
         w.task = self.get_current_task()
 

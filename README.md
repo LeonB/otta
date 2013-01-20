@@ -50,6 +50,7 @@ Global idea:
 * Spacing and Alignment: 8.2.3 (http://library.gnome.org/devel/hig-book/2.32/design-window.html.en#layout-callouts-figure / http://library.gnome.org/devel/hig-book/2.32/windows-alert.html.en)
 * 1.6:1
 * http://swapoff.posterous.com/decoupling-ui-from-logic-with
+* http://smalltalk.gnu.org/blog/joe/absolute-beginners-guide-part-ix-gnu-smalltalk-gtk-using-gtktreeview-table
 
 # Documentation: #
 * http://learnpygtk.org/pygtktutorial/spinner.html

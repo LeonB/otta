@@ -22,7 +22,8 @@ class Task(peewee.Model):
 		database = peewee.SqliteDatabase(os.path.expanduser(otta.Config().database))
 
 class WorklogEntry(peewee.Model):
-	date        = peewee.DateField()
+	started_at  = peewee.DateTimeField()
+	stopped_at  = peewee.DateTimeField()
 	seconds     = peewee.IntegerField()
 	description = peewee.TextField(null = True)
 	task        = peewee.ForeignKeyField(Task, related_name='worklog_items')
